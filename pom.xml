@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.nageoffer.shortlink</groupId>
+    <artifactId>shortlink</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <java.version>17</java.version>
+        <spring-boot.version>3.0.7</spring-boot.version>
+        <spring-cloud.version>2022.0.3</spring-cloud.version>
+        <spring-cloud-alibaba.version>2022.0.0.0-RC2</spring-cloud-alibaba.version>
+        <mybatis-spring-boot-starter.version>3.0.2</mybatis-spring-boot-starter.version>
+        <shardingsphere.version>5.3.2</shardingsphere.version>
+        <jjwt.version>0.9.1</jjwt.version>
+        <fastjson2.version>2.0.36</fastjson2.version>
+        <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
+        <dozer-core.version>6.5.2</dozer-core.version>
+        <hutool-all.version>5.8.20</hutool-all.version>
+        <redisson.version>3.21.3</redisson.version>
+        <guava.version>30.0-jre</guava.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>shardingsphere-jdbc-core</artifactId>
+                <version>${shardingsphere.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson2.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.dozermapper</groupId>
+                <artifactId>dozer-core</artifactId>
+                <version>${dozer-core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool-all.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>
+<!--### 1. 核心框架与微服务生态-->
+
+<!--这部分构成了项目的“骨架”和“神经系统”。-->
+
+<!--* **Spring Boot (3.0.7)**-->
+<!--* **简介：** Java 领域最主流的应用开发框架。-->
+<!--* **特点：** 版本 **3.0.x** 是一个重要的分界线，它强制要求 **Java 17+**，底层由 Java EE 迁移到了 **Jakarta EE**。这意味着性能更好，但也意味着旧代码迁移有一定成本。-->
+
+
+<!--* **Spring Cloud (2022.0.3)**-->
+<!--* **简介：** 基于 Spring Boot 的微服务工具集。-->
+<!--* **作用：** 提供了分布式系统的常见模式（如网关 Gateway、负载均衡等）。`2022.0.3` 是适配 Spring Boot 3 的版本（代号 Kilburn）。-->
+
+
+<!--* **Spring Cloud Alibaba (2022.0.0.0-RC2)**-->
+<!--* **简介：** 阿里巴巴提供的微服务解决方案，国内企业级开发首选。-->
+<!--* **作用：** 虽然这里只引入了 BOM（依赖清单），但它通常包含了 **Nacos** (注册中心与配置中心)、**Sentinel** (流量防卫兵/熔断限流)、**Seata** (分布式事务) 等组件。-->
+
+
+
+<!--### 2. 数据持久化与数据库治理-->
+
+<!--这部分处理数据如何存取，以及如何应对海量数据。-->
+
+<!--* **MyBatis-Plus (3.5.3.1)**-->
+<!--* **简介：** 国人团队基于 MyBatis 增强的 ORM 框架。-->
+<!--* **作用：** “只做增强不做改变”。它提供了极其方便的 CRUD 接口，不需要写 SQL 就能完成单表操作，极大提高了开发效率。-->
+
+
+<!--* **ShardingSphere-JDBC (5.3.2)**-->
+<!--* **简介：** Apache 顶级项目，数据库中间件。-->
+<!--* **作用：** 用于 **分库分表** (Sharding) 和 **读写分离**。-->
+<!--* **场景：** 对于 `shortlink`（短链接）这种系统，数据量通常非常巨大，单表难以支撑，ShardingSphere 是解决海量数据存储的关键组件。-->
+
+
+
+<!--### 3. 中间件与缓存-->
+
+<!--* **Redisson (3.21.3)**-->
+<!--* **简介：** 基于 Redis 的 Java 驻内存数据网格（In-Memory Data Grid）。-->
+<!--* **作用：** 它不仅仅是 Redis 客户端，更提供了丰富的一套分布式工具，如 **分布式锁** (Lock)、布隆过滤器 (Bloom Filter)、分布式集合等。在短链接系统中，常用于防止缓存击穿或生成唯一 ID。-->
+
+
+
+<!--### 4. 工具库 (Utilities)-->
+
+<!--这部分是开发的“瑞士军刀”，减少重复造轮子。-->
+
+<!--* **Hutool (5.8.20)**-->
+<!--* **简介：** 一个小而全的 Java 工具类库，国内非常流行。-->
+<!--* **作用：** 涵盖了字符串操作、日期处理、加密解密、HTTP 客户端等几乎所有日常开发需要的静态工具方法。-->
+
+
+<!--* **Guava (30.0-jre)**-->
+<!--* **简介：** Google 提供的核心 Java 库。-->
+<!--* **作用：** 提供了强大的集合类（Immutable Collections）、缓存（LocalCache）、并发工具等。-->
+
+
+<!--* **Fastjson2 (2.0.36)**-->
+<!--* **简介：** 阿里巴巴推出的 JSON 解析库（Fastjson 的重构升级版）。-->
+<!--* **作用：** 速度极快，主要用于对象与 JSON 字符串的互转。Version 2 修复了 v1 版本的许多安全漏洞并提升了性能。-->
+
+
+<!--* **Dozer (6.5.2)**-->
+<!--* **简介：** Java Bean 映射工具。-->
+<!--* **作用：** 用于在不同对象之间复制属性（例如将数据库实体 `Entity` 转换为前端使用的 `DTO`）。-->
+<!--* *注：Dozer 目前维护活跃度较低，很多新项目开始转向 MapStruct，但在老项目中依然常见。*-->
+
+
+
+<!--### 5. 安全与认证-->
+
+<!--* **JJWT (0.9.1)**-->
+<!--* **简介：** JSON Web Token 的 Java 实现。-->
+<!--* **作用：** 用于生成和解析 JWT 令牌，常用于无状态的单点登录 (SSO) 和 API 鉴权。-->
+
+
+
