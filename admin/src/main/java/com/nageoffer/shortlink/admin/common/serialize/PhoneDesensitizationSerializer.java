@@ -15,43 +15,24 @@
  * limitations under the License.
  */
 
-package com.nageoffer.shortlink.admin.dto.resp;
+package com.nageoffer.shortlink.admin.common.serialize;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.nageoffer.shortlink.admin.common.serialize.PhoneDesensitizationSerializer;
-import lombok.Data;
+import cn.hutool.core.util.DesensitizedUtil;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+
+import java.io.IOException;
 
 /**
- * 用户返回参数响应
+ * 手机号脱敏反序列化
  * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：link）获取项目资料
  */
-@Data
-public class UserRespDTO {
+public class PhoneDesensitizationSerializer extends JsonSerializer<String> {
 
-    /**
-     * id
-     */
-    private Long id;
-
-    /**
-     * 用户名
-     */
-    private String username;
-
-    /**
-     * 真实姓名
-     */
-    private String realName;
-
-    /**
-     * 手机号
-     */
-    @JsonSerialize(using = PhoneDesensitizationSerializer.class)
-    //注释：使用自定义的序列化器对手机号进行脱敏处理
-    private String phone;
-
-    /**
-     * 邮箱
-     */
-    private String mail;
+    @Override
+    public void serialize(String phone, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        String phoneDesensitization = DesensitizedUtil.mobilePhone(phone);
+        jsonGenerator.writeString(phoneDesensitization);
+    }
 }
