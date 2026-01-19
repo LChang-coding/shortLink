@@ -64,7 +64,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,UserDO> implements U
         if (!hasUsername(requestParam.getUsername())) {
             throw new ClientException(USER_NAME_EXIST);
         }
-        RLock lock = redissonClient.getLock(LOCK_USER_REGISTER_KEY + requestParam.getUsername());
+        RLock lock = redissonClient.getLock(LOCK_USER_REGISTER_KEY + requestParam.getUsername());//一个用户名一把锁 防止并发注册同一个未注册用户名造成db压力
         if (!lock.tryLock()) {
             throw new ClientException(USER_NAME_EXIST);
         }

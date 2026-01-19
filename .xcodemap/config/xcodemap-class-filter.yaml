@@ -1,5 +1,6 @@
 autoDeleteData: false
 autoDetectedPackages:
+- com.nageoffer.shortling.admin
 - com.nageoffer.shortlink.admin
 autoKeepDataNum: 10
 enableAutoDetect: true
