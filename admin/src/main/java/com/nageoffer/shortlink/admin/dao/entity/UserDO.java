@@ -45,19 +45,20 @@ public class UserDO {
         private Long deletionTime;
 
         /**
-         * 创建时间
+         * 创建时间 在新增时自动填充
          */
         @TableField(fill= FieldFill.INSERT)
         private Date createTime;
 
         /**
-         * 修改时间
+         * 修改时间 在新增和修改时自动填充
          */
         @TableField(fill= FieldFill.INSERT_UPDATE)
         private Date updateTime;
 
         /**
          * 删除标识 0：未删除 1：已删除
+         * 在删除时自动填充
          */
         @TableField(fill= FieldFill.INSERT)
         private Integer delFlag;
