@@ -29,4 +29,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,UserDO> implements U
         BeanUtils.copyProperties(userDO, result);
         return result;
     }
+
+    @Override
+    public Boolean hasUsername(String username) {
+        LambdaQueryWrapper<UserDO> eq = Wrappers.lambdaQuery(UserDO.class)
+                .eq(UserDO::getUsername, username);// 构建查询条件：根据用户名进行等值匹配
+        UserDO userDO = baseMapper.selectOne(eq);// 执行查询操作，返回匹配的用户实体
+        if (userDO != null) {
+            return false;
+        }
+        return true;
+    }
 }
