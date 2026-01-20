@@ -15,33 +15,23 @@
  * limitations under the License.
  */
 
-package com.nageoffer.shortlink.admin.service;
+package com.nageoffer.shortlink.project;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.nageoffer.shortlink.admin.dao.entity.GroupDO;
-import com.nageoffer.shortlink.admin.dto.req.ShortLinkGroupSortReqDTO;
-import com.nageoffer.shortlink.admin.dto.req.ShortLinkGroupUpdateReqDTO;
-import com.nageoffer.shortlink.admin.dto.resp.ShortLinkGroupRespDTO;
-
-import java.util.List;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
- * 短链接分组接口层
+ * 短链接应用
  * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：link）获取项目资料
  */
-public interface GroupService extends IService<GroupDO> {
-    /**
-     * 新增短链接分组
-     *
-     * @param groupName 短链接分组名
-     */
-    void saveGroup(String groupName);
+@SpringBootApplication
+@EnableDiscoveryClient
+@MapperScan("com.nageoffer.shortlink.project.dao.mapper")
+public class ShortLinkApplication {
 
-    List<ShortLinkGroupRespDTO> listGroup();
-
-    void updateGroup(ShortLinkGroupUpdateReqDTO requestParam);
-
-    void deleteGroup(String gid);
-
-    void sortGroup(List<ShortLinkGroupSortReqDTO> requestParam);
+    public static void main(String[] args) {
+        SpringApplication.run(ShortLinkApplication.class, args);
+    }
 }

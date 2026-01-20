@@ -15,33 +15,36 @@
  * limitations under the License.
  */
 
-package com.nageoffer.shortlink.admin.service;
+package com.nageoffer.shortlink.project.common.database;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.nageoffer.shortlink.admin.dao.entity.GroupDO;
-import com.nageoffer.shortlink.admin.dto.req.ShortLinkGroupSortReqDTO;
-import com.nageoffer.shortlink.admin.dto.req.ShortLinkGroupUpdateReqDTO;
-import com.nageoffer.shortlink.admin.dto.resp.ShortLinkGroupRespDTO;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import lombok.Data;
 
-import java.util.List;
+import java.util.Date;
 
 /**
- * 短链接分组接口层
+ * 数据库持久层对象基础属性
  * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：link）获取项目资料
  */
-public interface GroupService extends IService<GroupDO> {
+@Data
+public class BaseDO {
+
     /**
-     * 新增短链接分组
-     *
-     * @param groupName 短链接分组名
+     * 创建时间
      */
-    void saveGroup(String groupName);
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;
 
-    List<ShortLinkGroupRespDTO> listGroup();
+    /**
+     * 修改时间
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateTime;
 
-    void updateGroup(ShortLinkGroupUpdateReqDTO requestParam);
-
-    void deleteGroup(String gid);
-
-    void sortGroup(List<ShortLinkGroupSortReqDTO> requestParam);
+    /**
+     * 删除标识 0：未删除 1：已删除
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private Integer delFlag;
 }

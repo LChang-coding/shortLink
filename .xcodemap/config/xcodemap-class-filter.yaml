@@ -2,6 +2,7 @@ autoDeleteData: false
 autoDetectedPackages:
 - com.nageoffer.shortling.admin
 - com.nageoffer.shortlink.admin
+- com.nageoffer.shortlink.project
 autoKeepDataNum: 10
 enableAutoDetect: true
 entryDisplayConfig:
