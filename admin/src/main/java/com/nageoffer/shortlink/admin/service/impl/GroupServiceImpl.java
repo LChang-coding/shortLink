@@ -17,10 +17,13 @@
 
 package com.nageoffer.shortlink.admin.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nageoffer.shortlink.admin.dao.entity.GroupDO;
 import com.nageoffer.shortlink.admin.dao.mapper.GroupMapper;
 import com.nageoffer.shortlink.admin.service.GroupService;
+import com.nageoffer.shortlink.admin.toolkit.RandomGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -34,5 +37,26 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implements GroupService {
 
+    @Override
+    public void saveGroup(String groupName) {
+        String gid;
+        while(true){
+            gid = RandomGenerator.generateRandom();//确保是唯一id
+            if(hasGid(gid)){
+                break;
+            }
+        }
+        GroupDO groupDO = GroupDO.builder()
+                .gid(gid)
+                .name(groupName)
+                .sortOrder(0)
+                .build();// 构建分组实体
+        baseMapper.insert(groupDO);// 插入分组
     }
-
+    private boolean hasGid(String gid) {
+        LambdaQueryWrapper<GroupDO> queryWrapper = Wrappers.lambdaQuery(GroupDO.class)
+                .eq(GroupDO::getGid, gid);// gid 全局唯一
+        GroupDO hasGroupFlag = baseMapper.selectOne(queryWrapper);// 查询是否存在相同gid的分组
+        return hasGroupFlag == null;//true表示不存在相同gid
+    }
+}

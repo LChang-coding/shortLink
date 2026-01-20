@@ -15,20 +15,33 @@
  * limitations under the License.
  */
 
-package com.nageoffer.shortlink.admin.service;
+package com.nageoffer.shortlink.admin.controller;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.nageoffer.shortlink.admin.dao.entity.GroupDO;
+import com.nageoffer.shortlink.admin.common.convention.result.Result;
+import com.nageoffer.shortlink.admin.common.convention.result.Results;
+import com.nageoffer.shortlink.admin.dto.req.ShortLinkGroupSaveReqDTO;
+import com.nageoffer.shortlink.admin.service.GroupService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 短链接分组接口层
+ * 短链接分组控制层
  * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：link）获取项目资料
  */
-public interface GroupService extends IService<GroupDO> {
+@RestController
+@RequiredArgsConstructor
+public class GroupController {
+
+    private final GroupService groupService;
+
     /**
      * 新增短链接分组
-     *
-     * @param groupName 短链接分组名
      */
-    void saveGroup(String groupName);
+    @PostMapping("/api/short-link/admin/v1/group")
+    public Result<Void> save(@RequestBody ShortLinkGroupSaveReqDTO requestParam) {
+        groupService.saveGroup(requestParam.getName());
+        return Results.success();
+    }
 }
