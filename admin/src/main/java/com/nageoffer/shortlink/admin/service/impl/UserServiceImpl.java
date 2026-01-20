@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.nageoffer.shortlink.admin.common.biz.user.UserContext;
 import com.nageoffer.shortlink.admin.common.convention.exception.ClientException;
 import com.nageoffer.shortlink.admin.common.convention.exception.ServiceException;
 import com.nageoffer.shortlink.admin.common.enums.UserErrorCodeEnum;
@@ -30,6 +31,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import static com.nageoffer.shortlink.admin.common.constant.RedisCacheConstant.LOCK_USER_REGISTER_KEY;
@@ -93,7 +95,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,UserDO> implements U
     }
     @Override
     public void update(UserUpdateReqDTO requestParam) {
-        // TODO 验证当前用户名是否为登陆用户
+        if (!Objects.equals(requestParam.getUsername(), UserContext.getUsername())) {
+            throw new ClientException("当前登录用户修改请求异常");
+        }
         LambdaUpdateWrapper<UserDO> updateWrapper = Wrappers.lambdaUpdate(UserDO.class)
                 .eq(UserDO::getUsername, requestParam.getUsername());// 构建更新条件：根据用户名进行等值匹配
         baseMapper.update(BeanUtil.toBean(requestParam, UserDO.class), updateWrapper);
@@ -124,7 +128,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,UserDO> implements U
         // 5. 如果 Redis 中已有登录信息（即用户已在某处登录且未过期）
         if (CollUtil.isNotEmpty(hasLoginMap)) {
             // 刷新该登录信息的过期时间（续期 30 分钟）
-            stringRedisTemplate.expire(USER_LOGIN_KEY + requestParam.getUsername(), 30L, TimeUnit.MINUTES);
+            stringRedisTemplate.expire(USER_LOGIN_KEY + requestParam.getUsername(), 30L, TimeUnit.DAYS);
 
             // 从 Hash 中提取现有的 Token (uuid)
             /**
