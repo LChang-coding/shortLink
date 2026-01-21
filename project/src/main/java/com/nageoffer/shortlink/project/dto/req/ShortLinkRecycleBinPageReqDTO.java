@@ -15,28 +15,23 @@
  * limitations under the License.
  */
 
-package com.nageoffer.shortlink.project.service;
+package com.nageoffer.shortlink.project.dto.req;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.nageoffer.shortlink.project.dao.entity.ShortLinkDO;
-import com.nageoffer.shortlink.project.dto.req.ShortLinkCreateReqDTO;
-import com.nageoffer.shortlink.project.dto.req.ShortLinkPageReqDTO;
-import com.nageoffer.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
-import com.nageoffer.shortlink.project.dto.resp.ShortLinkGroupCountQueryRespDTO;
-import com.nageoffer.shortlink.project.dto.resp.ShortLinkPageRespDTO;
+import lombok.Data;
 
 import java.util.List;
 
 /**
- * 短链接接口层
+ * 回收站短链接分页请求参数
  * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：link）获取项目资料
  */
-public interface ShortLinkService extends IService<ShortLinkDO> {
+@Data
+public class ShortLinkRecycleBinPageReqDTO extends Page<ShortLinkDO> {
 
-    ShortLinkCreateRespDTO createShortLink(ShortLinkCreateReqDTO requestParam);
-
-    IPage<ShortLinkPageRespDTO> pageShortLink(ShortLinkPageReqDTO requestParam);
-
-    List<ShortLinkGroupCountQueryRespDTO> listGroupShortLinkCount(List<String> requestParam);
+    /**
+     * 分组标识
+     */
+    private List<String> gidList;
 }

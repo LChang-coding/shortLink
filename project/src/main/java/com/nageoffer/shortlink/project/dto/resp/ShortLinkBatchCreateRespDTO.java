@@ -15,28 +15,32 @@
  * limitations under the License.
  */
 
-package com.nageoffer.shortlink.project.service;
+package com.nageoffer.shortlink.project.dto.resp;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.nageoffer.shortlink.project.dao.entity.ShortLinkDO;
-import com.nageoffer.shortlink.project.dto.req.ShortLinkCreateReqDTO;
-import com.nageoffer.shortlink.project.dto.req.ShortLinkPageReqDTO;
-import com.nageoffer.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
-import com.nageoffer.shortlink.project.dto.resp.ShortLinkGroupCountQueryRespDTO;
-import com.nageoffer.shortlink.project.dto.resp.ShortLinkPageRespDTO;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 /**
- * 短链接接口层
+ * 短链接批量创建响应对象
  * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：link）获取项目资料
  */
-public interface ShortLinkService extends IService<ShortLinkDO> {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ShortLinkBatchCreateRespDTO {
 
-    ShortLinkCreateRespDTO createShortLink(ShortLinkCreateReqDTO requestParam);
+    /**
+     * 成功数量
+     */
+    private Integer total;
 
-    IPage<ShortLinkPageRespDTO> pageShortLink(ShortLinkPageReqDTO requestParam);
-
-    List<ShortLinkGroupCountQueryRespDTO> listGroupShortLinkCount(List<String> requestParam);
+    /**
+     * 批量创建返回参数
+     */
+    private List<ShortLinkBaseInfoRespDTO> baseLinkInfos;
 }
