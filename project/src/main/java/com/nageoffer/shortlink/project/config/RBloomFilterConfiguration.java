@@ -15,18 +15,27 @@
  * limitations under the License.
  */
 
-package com.nageoffer.shortlink.project.service;
+package com.nageoffer.shortlink.project.config;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.nageoffer.shortlink.project.dao.entity.ShortLinkDO;
-import com.nageoffer.shortlink.project.dto.req.ShortLinkCreateReqDTO;
-import com.nageoffer.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
+import org.redisson.api.RBloomFilter;
+import org.redisson.api.RedissonClient;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
- * 短链接接口层
+ * 布隆过滤器配置
  * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：link）获取项目资料
  */
-public interface ShortLinkService extends IService<ShortLinkDO> {
+@Configuration
+public class RBloomFilterConfiguration {
 
-    ShortLinkCreateRespDTO createShortLink(ShortLinkCreateReqDTO requestParam);
+    /**
+     * 防止短链接创建查询数据库的布隆过滤器
+     */
+    @Bean
+    public RBloomFilter<String> shortUriCreateCachePenetrationBloomFilter(RedissonClient redissonClient) {
+        RBloomFilter<String> cachePenetrationBloomFilter = redissonClient.getBloomFilter("shortUriCreateCachePenetrationBloomFilter");
+        cachePenetrationBloomFilter.tryInit(100000000L, 0.001);
+        return cachePenetrationBloomFilter;
+    }
 }

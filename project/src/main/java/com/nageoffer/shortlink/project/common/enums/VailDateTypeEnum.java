@@ -15,18 +15,28 @@
  * limitations under the License.
  */
 
-package com.nageoffer.shortlink.project.service;
+package com.nageoffer.shortlink.project.common.enums;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.nageoffer.shortlink.project.dao.entity.ShortLinkDO;
-import com.nageoffer.shortlink.project.dto.req.ShortLinkCreateReqDTO;
-import com.nageoffer.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /**
- * 短链接接口层
+ * 有效期类型
  * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：link）获取项目资料
  */
-public interface ShortLinkService extends IService<ShortLinkDO> {
+@RequiredArgsConstructor
+public enum VailDateTypeEnum {
 
-    ShortLinkCreateRespDTO createShortLink(ShortLinkCreateReqDTO requestParam);
+    /**
+     * 永久有效期
+     */
+    PERMANENT(0),
+
+    /**
+     * 自定义有效期
+     */
+    CUSTOM(1);
+
+    @Getter
+    private final int type;
 }

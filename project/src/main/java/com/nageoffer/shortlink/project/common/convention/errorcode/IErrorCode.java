@@ -15,18 +15,21 @@
  * limitations under the License.
  */
 
-package com.nageoffer.shortlink.project.service;
-
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.nageoffer.shortlink.project.dao.entity.ShortLinkDO;
-import com.nageoffer.shortlink.project.dto.req.ShortLinkCreateReqDTO;
-import com.nageoffer.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
+package com.nageoffer.shortlink.project.common.convention.errorcode;
 
 /**
- * 短链接接口层
+ * 平台错误码
  * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：link）获取项目资料
  */
-public interface ShortLinkService extends IService<ShortLinkDO> {
+public interface IErrorCode {
 
-    ShortLinkCreateRespDTO createShortLink(ShortLinkCreateReqDTO requestParam);
+    /**
+     * 错误码
+     */
+    String code();
+
+    /**
+     * 错误信息
+     */
+    String message();
 }

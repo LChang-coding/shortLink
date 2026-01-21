@@ -15,18 +15,32 @@
  * limitations under the License.
  */
 
-package com.nageoffer.shortlink.project.service;
+package com.nageoffer.shortlink.project.controller;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.nageoffer.shortlink.project.dao.entity.ShortLinkDO;
+import com.nageoffer.shortlink.project.common.convention.result.Result;
+import com.nageoffer.shortlink.project.common.convention.result.Results;
 import com.nageoffer.shortlink.project.dto.req.ShortLinkCreateReqDTO;
 import com.nageoffer.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
+import com.nageoffer.shortlink.project.service.ShortLinkService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 短链接接口层
+ * 短链接控制层
  * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：link）获取项目资料
  */
-public interface ShortLinkService extends IService<ShortLinkDO> {
+@RestController
+@RequiredArgsConstructor
+public class ShortLinkController {
+    private final ShortLinkService shortLinkService;
+    /**
+     * 创建短链接
+     */
+    @PostMapping("/api/short-link/v1/create")
+    public Result<ShortLinkCreateRespDTO> createShortLink(@RequestBody ShortLinkCreateReqDTO requestParam) {
+        return Results.success(shortLinkService.createShortLink(requestParam));
+    }
 
-    ShortLinkCreateRespDTO createShortLink(ShortLinkCreateReqDTO requestParam);
 }

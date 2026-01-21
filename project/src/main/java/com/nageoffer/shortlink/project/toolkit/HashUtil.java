@@ -22,6 +22,8 @@ import cn.hutool.core.lang.hash.MurmurHash;
 /**
  * HASH 工具类
  * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：link）获取项目资料
+ * 当用户输入一个长链接请求缩短时，系统调用此方法生成一个短小的字符串（如 Rx3yL）。
+ * 生成的这个短字符串会被拼接在域名后面（如 `http://n.cn/Rx3yL`），作为该链接的唯一标识存入数据库
  */
 public class HashUtil {
 

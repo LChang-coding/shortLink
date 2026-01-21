@@ -15,18 +15,33 @@
  * limitations under the License.
  */
 
-package com.nageoffer.shortlink.project.service;
+package com.nageoffer.shortlink.project.common.convention.exception;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.nageoffer.shortlink.project.dao.entity.ShortLinkDO;
-import com.nageoffer.shortlink.project.dto.req.ShortLinkCreateReqDTO;
-import com.nageoffer.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
+
+import com.nageoffer.shortlink.project.common.convention.errorcode.IErrorCode;
+import lombok.Getter;
+import org.springframework.util.StringUtils;
+
+import java.util.Optional;
 
 /**
- * 短链接接口层
+ * 抽象项目中三类异常体系，客户端异常、服务端异常以及远程服务调用异常
  * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：link）获取项目资料
+ *
+ * @see ClientException
+ * @see ServiceException
+ * @see RemoteException
  */
-public interface ShortLinkService extends IService<ShortLinkDO> {
+@Getter
+public abstract class AbstractException extends RuntimeException {
 
-    ShortLinkCreateRespDTO createShortLink(ShortLinkCreateReqDTO requestParam);
+    public final String errorCode;
+
+    public final String errorMessage;
+
+    public AbstractException(String message, Throwable throwable, IErrorCode errorCode) {
+        super(message, throwable);
+        this.errorCode = errorCode.code();
+        this.errorMessage = Optional.ofNullable(StringUtils.hasLength(message) ? message : null).orElse(errorCode.message());
+    }
 }

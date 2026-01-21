@@ -15,18 +15,51 @@
  * limitations under the License.
  */
 
-package com.nageoffer.shortlink.project.service;
+package com.nageoffer.shortlink.project.common.convention.result;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.nageoffer.shortlink.project.dao.entity.ShortLinkDO;
-import com.nageoffer.shortlink.project.dto.req.ShortLinkCreateReqDTO;
-import com.nageoffer.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
+import lombok.Data;
+import lombok.experimental.Accessors;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
- * 短链接接口层
+ * 全局返回对象
  * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：link）获取项目资料
  */
-public interface ShortLinkService extends IService<ShortLinkDO> {
+@Data
+@Accessors(chain = true)
+public class Result<T> implements Serializable {
 
-    ShortLinkCreateRespDTO createShortLink(ShortLinkCreateReqDTO requestParam);
+    @Serial
+    private static final long serialVersionUID = 5679018624309023727L;
+
+    /**
+     * 正确返回码
+     */
+    public static final String SUCCESS_CODE = "0";
+
+    /**
+     * 返回码
+     */
+    private String code;
+
+    /**
+     * 返回消息
+     */
+    private String message;
+
+    /**
+     * 响应数据
+     */
+    private T data;
+
+    /**
+     * 请求ID
+     */
+    private String requestId;
+
+    public boolean isSuccess() {
+        return SUCCESS_CODE.equals(code);
+    }
 }

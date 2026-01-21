@@ -15,18 +15,35 @@
  * limitations under the License.
  */
 
-package com.nageoffer.shortlink.project.service;
+package com.nageoffer.shortlink.project.dto.resp;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.nageoffer.shortlink.project.dao.entity.ShortLinkDO;
-import com.nageoffer.shortlink.project.dto.req.ShortLinkCreateReqDTO;
-import com.nageoffer.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * 短链接接口层
+ * 短链接创建响应对象
  * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：link）获取项目资料
  */
-public interface ShortLinkService extends IService<ShortLinkDO> {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ShortLinkCreateRespDTO {
 
-    ShortLinkCreateRespDTO createShortLink(ShortLinkCreateReqDTO requestParam);
+    /**
+     * 分组信息
+     */
+    private String gid;
+
+    /**
+     * 原始链接
+     */
+    private String originUrl;
+
+    /**
+     * 短链接
+     */
+    private String fullShortUrl;
 }

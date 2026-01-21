@@ -15,18 +15,35 @@
  * limitations under the License.
  */
 
-package com.nageoffer.shortlink.project.service;
+package com.nageoffer.shortlink.project.common.convention.exception;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.nageoffer.shortlink.project.dao.entity.ShortLinkDO;
-import com.nageoffer.shortlink.project.dto.req.ShortLinkCreateReqDTO;
-import com.nageoffer.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
+
+import com.nageoffer.shortlink.project.common.convention.errorcode.BaseErrorCode;
+import com.nageoffer.shortlink.project.common.convention.errorcode.IErrorCode;
 
 /**
- * 短链接接口层
+ * 远程服务调用异常
  * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：link）获取项目资料
  */
-public interface ShortLinkService extends IService<ShortLinkDO> {
+public class RemoteException extends AbstractException {
 
-    ShortLinkCreateRespDTO createShortLink(ShortLinkCreateReqDTO requestParam);
+    public RemoteException(String message) {
+        this(message, null, BaseErrorCode.REMOTE_ERROR);
+    }
+
+    public RemoteException(String message, IErrorCode errorCode) {
+        this(message, null, errorCode);
+    }
+
+    public RemoteException(String message, Throwable throwable, IErrorCode errorCode) {
+        super(message, throwable, errorCode);
+    }
+
+    @Override
+    public String toString() {
+        return "RemoteException{" +
+                "code='" + errorCode + "'," +
+                "message='" + errorMessage + "'" +
+                '}';
+    }
 }
