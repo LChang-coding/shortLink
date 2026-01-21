@@ -67,6 +67,23 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
                 .build();// 构建分组实体
         baseMapper.insert(groupDO);// 插入分组
     }
+    @Override
+    public void saveGroup(String groupName, String username) {
+        String gid;
+        while(true){
+            gid = RandomGenerator.generateRandom();//确保是唯一id
+            if(hasGid(gid)){
+                break;
+            }
+        }
+        GroupDO groupDO = GroupDO.builder()
+                .gid(gid)
+                .name(groupName)
+                .username(username)
+                .sortOrder(0)
+                .build();// 构建分组实体
+        baseMapper.insert(groupDO);// 插入分组
+    }
 
     @Override
     public List<ShortLinkGroupRespDTO> listGroup() {
