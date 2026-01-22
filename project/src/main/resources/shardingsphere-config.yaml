@@ -1,4 +1,3 @@
-# 数据源集合
 dataSources:
   ds_0:
     dataSourceClassName: com.zaxxer.hikari.HikariDataSource
@@ -11,25 +10,27 @@ rules:
   - !SHARDING
     tables:
       t_link:
-        # 真实数据节点，比如数据库源以及数据库在数据库中真实存在的
         actualDataNodes: ds_0.t_link_${0..15}
-        # 分表策略
         tableStrategy:
-          # 用于单分片键的标准分片场景
           standard:
-            # 分片键
             shardingColumn: gid
-            # 分片算法，对应 rules[0].shardingAlgorithms
             shardingAlgorithmName: link_table_hash_mod
-    # 分片算法
+      t_link_goto:
+        actualDataNodes: ds_0.t_link_goto_${0..15}
+        tableStrategy:
+          standard:
+            shardingColumn: full_short_url
+            shardingAlgorithmName: link_goto_table_hash_mod
+
     shardingAlgorithms:
-      # 数据表分片算法
       link_table_hash_mod:
-        # 根据分片键 Hash 分片
         type: HASH_MOD
-        # 分片数量
         props:
           sharding-count: 16
-# 展现逻辑 SQL & 真实 SQL
+      link_goto_table_hash_mod:
+        type: HASH_MOD
+        props:
+          sharding-count: 16
+
 props:
   sql-show: true
