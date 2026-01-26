@@ -20,11 +20,11 @@ package com.nageoffer.shortlink.admin.dto.req;
 import lombok.Data;
 
 /**
- * 回收站移除功能
+ * 分组短链接监控请求参数
  * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：link）获取项目资料
  */
 @Data
-public class RecycleBinRemoveReqDTO {
+public class ShortLinkGroupStatsReqDTO {
 
     /**
      * 分组标识
@@ -32,7 +32,12 @@ public class RecycleBinRemoveReqDTO {
     private String gid;
 
     /**
-     * 全部短链接
+     * 开始日期
      */
-    private String fullShortUrl;
+    private String startDate;
+
+    /**
+     * 结束日期
+     */
+    private String endDate;
 }

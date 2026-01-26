@@ -15,24 +15,35 @@
  * limitations under the License.
  */
 
-package com.nageoffer.shortlink.admin.dto.req;
+package com.nageoffer.shortlink.admin.dto.resp;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * 回收站移除功能
+ * 短链接创建响应对象
  * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：link）获取项目资料
  */
 @Data
-public class RecycleBinRemoveReqDTO {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ShortLinkCreateRespDTO {
 
     /**
-     * 分组标识
+     * 分组信息
      */
     private String gid;
 
     /**
-     * 全部短链接
+     * 原始链接
+     */
+    private String originUrl;
+
+    /**
+     * 短链接
      */
     private String fullShortUrl;
 }

@@ -15,16 +15,16 @@
  * limitations under the License.
  */
 
-package com.nageoffer.shortlink.admin.dto.req;
+package com.nageoffer.shortlink.admin.dto.resp;
 
 import lombok.Data;
 
 /**
- * 回收站移除功能
+ * 短链接分组查询返回参数
  * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：link）获取项目资料
  */
 @Data
-public class RecycleBinRemoveReqDTO {
+public class ShortLinkGroupCountQueryRespDTO {
 
     /**
      * 分组标识
@@ -32,7 +32,7 @@ public class RecycleBinRemoveReqDTO {
     private String gid;
 
     /**
-     * 全部短链接
+     * 短链接数量
      */
-    private String fullShortUrl;
+    private Integer shortLinkCount;
 }
