@@ -14,6 +14,8 @@ spring:
       prefix: /templates/
       suffix: .html
 short-link:
+  domain:
+    default: localhost:8001
   stats:
     locale:
       amap-key: c8a494b480ecb0b73c26a41881a93b68
