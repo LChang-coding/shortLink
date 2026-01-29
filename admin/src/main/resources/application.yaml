@@ -10,3 +10,10 @@ data:
     redis:
         host:127.0.0.1
         port:6379
+short-link:
+  group:
+    max-num: 20
+  flow-limit:
+    enable: true
+    time-window: 1
+    max-access-count: 1
