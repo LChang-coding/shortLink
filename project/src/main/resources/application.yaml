@@ -1,7 +1,11 @@
 server:
   port: 8001
+  shutdown: graceful
 
 spring:
+  lifecycle:
+    # 停机等待的最长时间（例如 30 秒）
+    timeout-per-shutdown-phase: 30s
   datasource:
     driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
     url: jdbc:shardingsphere:classpath:shardingsphere-config.yaml
@@ -9,6 +13,12 @@ spring:
     redis:
       host: 127.0.0.1
       port: 6379
+      timeout: 5000ms
+      connect-timeout: 10000ms
+      channel-topic:
+        short-link-stats: 'short_link:stats-stream'
+        short-link-stats-group: 'short_link:stats-stream:only-group'
+
   mvc:
     view:
       prefix: /templates/
