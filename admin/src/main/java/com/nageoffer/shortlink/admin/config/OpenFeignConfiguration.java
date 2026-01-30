@@ -15,25 +15,26 @@
  * limitations under the License.
  */
 
-package com.nageoffer.shortlink.admin;
+package com.nageoffer.shortlink.admin.config;
 
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import com.nageoffer.shortlink.admin.common.biz.user.UserContext;
+import feign.RequestInterceptor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
- * 短链接后管应用
- * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：link）获取项目资料
+ * openFeign 微服务调用传递用户信息配置
+ *
  */
-@SpringBootApplication
-@EnableDiscoveryClient
-@EnableFeignClients("com.nageoffer.shortlink.admin.remote.dto")
-@MapperScan("com.nageoffer.shortlink.admin.dao.mapper")
-public class ShortLinkAdminApplication {
+@Configuration
+public class OpenFeignConfiguration {
 
-    public static void main(String[] args) {
-        SpringApplication.run(ShortLinkAdminApplication.class, args);
+    @Bean
+    public RequestInterceptor requestInterceptor() {
+        return template -> {
+            template.header("username", UserContext.getUsername());
+            template.header("userId", UserContext.getUserId());
+            template.header("realName", UserContext.getRealName());
+        };
     }
 }

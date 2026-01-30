@@ -3,6 +3,8 @@ server:
   shutdown: graceful
 
 spring:
+  application:
+    name: short-link-project
   lifecycle:
     # 停机等待的最长时间（例如 30 秒）
     timeout-per-shutdown-phase: 30s
@@ -23,6 +25,10 @@ spring:
     view:
       prefix: /templates/
       suffix: .html
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
 short-link:
   domain:
     default: localhost:8001
