@@ -24,7 +24,6 @@ import com.nageoffer.shortlink.admin.common.convention.errorcode.IErrorCode;
  * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：link）获取项目资料
  */
 public enum UserErrorCodeEnum implements IErrorCode {
-    USER_TOKEN_FAIL("A000200","用户验证token失败"),
 
     USER_NULL("B000200", "用户记录不存在"),
 
