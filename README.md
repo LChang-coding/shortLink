@@ -5,18 +5,18 @@ http://link.lcode.top/
     机器搭载了 24 核的 i9 处理器和 32GB 内存。
     
 
-分页查询分组的短链接接口：http://127.0.0.1:8000/api/short-link/admin/v1/page
+分页查询分组的短链接接口：
 
 项目最终实现了在每秒 2000+ 请求的高并发压力下，保持 0% 异常率与 347ms 稳定响应
 
 <img width="2325" height="140" alt="download" src="https://github.com/user-attachments/assets/f114ef42-ca67-4b0d-9f42-8cdffe375c10" />
-创建短链接接口：http://127.0.0.1:8000/api/short-link/admin/v1/create
+创建短链接接口：
 
 
 <img width="2319" height="124" alt="download" src="https://github.com/user-attachments/assets/91e17ad7-05c8-470e-84ad-9eb8c4d51c9b" />
 短链接创建接口成功扛住了每秒 1000+ 请求的高压，并在 3.2 万次样本测试中将响应速度稳定在 156ms
 
-跳转短链接接口测试：localhost:8001/4aZGYb
+跳转短链接接口测试：
 
 <img width="1514" height="115" alt="download" src="https://github.com/user-attachments/assets/66445b65-a115-49a4-8ab7-357311d8ec24" />
 
